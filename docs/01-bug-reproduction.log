@@ -1,0 +1,193 @@
+12:19:08.734 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.nestedvalidation.OrderControllerTest]: OrderControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:19:08.780 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.nestedvalidation.NestedValidationDebugApplication for test class com.example.nestedvalidation.OrderControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.3.12)
+
+2026-08-13T12:19:08.949Z  INFO 15936 --- [           main] c.e.n.OrderControllerTest                : Starting OrderControllerTest using Java 21.0.11 with PID 15936 (started by ubuntu in /home/ubuntu/spring-nested-validation-debug-lab)
+2026-08-13T12:19:08.950Z  INFO 15936 --- [           main] c.e.n.OrderControllerTest                : No active profile set, falling back to 1 default profile: "default"
+2026-08-13T12:19:09.377Z DEBUG 15936 --- [           main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-08-13T12:19:09.408Z  INFO 15936 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-08-13T12:19:09.408Z  INFO 15936 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-08-13T12:19:09.409Z  INFO 15936 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-08-13T12:19:09.418Z  INFO 15936 --- [           main] c.e.n.OrderControllerTest                : Started OrderControllerTest in 0.59 seconds (process running for 0.99)
+WARNING: A Java agent has been loaded dynamically (/home/ubuntu/.m2/repository/net/bytebuddy/byte-buddy-agent/1.14.19/byte-buddy-agent-1.14.19.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-08-13T12:19:09.877Z  INFO 15936 --- [           main] c.e.n.service.OrderService               : Created orderId=order-1, customerId=customer-1, postalCode=
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /orders
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"103"]
+             Body = {
+  "customerId": "customer-1",
+  "shippingAddress": {
+    "postalCode": "",
+    "city": "Tokyo"
+  }
+}
+
+    Session Attrs = {}
+
+Handler:
+             Type = com.example.nestedvalidation.api.OrderController
+           Method = com.example.nestedvalidation.api.OrderController#create(CreateOrderRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"orderId":"order-1","customerId":"customer-1","postalCode":""}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2026-08-13T12:19:09.925Z  INFO 15936 --- [           main] c.e.n.service.OrderService               : Created orderId=order-1, customerId=customer-1, postalCode=100-0001
+[[1;31mERROR[m] [1;31mTests [0;1mrun: [0;1m2[m, [1;31mFailures: [0;1;31m1[m, Errors: 0, Skipped: 0, Time elapsed: 1.261 s[1;31m <<< FAILURE![m -- in com.example.nestedvalidation.[1mOrderControllerTest[m
+[[1;31mERROR[m] com.example.nestedvalidation.OrderControllerTest.配送先郵便番号が空なら400で拒否し注文を作成しない -- Time elapsed: 0.493 s <<< FAILURE!
+org.opentest4j.MultipleFailuresError: 
+Multiple Failures (4 failures)
+	org.opentest4j.AssertionFailedError: 
+expected: 400
+ but was: 201
+	java.lang.AssertionError: 
+Expecting actual:
+  "{"orderId":"order-1","customerId":"customer-1","postalCode":""}"
+to contain:
+  ""code":"VALIDATION_ERROR"" 
+	java.lang.AssertionError: 
+Expecting actual:
+  "{"orderId":"order-1","customerId":"customer-1","postalCode":""}"
+to contain:
+  ""field":"shippingAddress.postalCode"" 
+	org.opentest4j.AssertionFailedError: 
+expected: 0
+ but was: 1
+	at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:80)
+	at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:44)
+	at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:38)
+	at org.junit.jupiter.api.Assertions.assertAll(Assertions.java:2944)
+	at com.example.nestedvalidation.OrderControllerTest.配送先郵便番号が空なら400で拒否し注文を作成しない(OrderControllerTest.java:47)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	Suppressed: org.opentest4j.AssertionFailedError: 
+expected: 400
+ but was: 201
+		at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+		at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+		at com.example.nestedvalidation.OrderControllerTest.lambda$配送先郵便番号が空なら400で拒否し注文を作成しない$0(OrderControllerTest.java:48)
+		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
+		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024)
+		at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+		at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+		at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921)
+		at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+		at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682)
+		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
+		... 7 more
+	Suppressed: java.lang.AssertionError: 
+Expecting actual:
+  "{"orderId":"order-1","customerId":"customer-1","postalCode":""}"
+to contain:
+  ""code":"VALIDATION_ERROR"" 
+		at com.example.nestedvalidation.OrderControllerTest.lambda$配送先郵便番号が空なら400で拒否し注文を作成しない$1(OrderControllerTest.java:49)
+		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
+		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024)
+		at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+		at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+		at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921)
+		at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+		at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682)
+		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
+		... 7 more
+	Suppressed: java.lang.AssertionError: 
+Expecting actual:
+  "{"orderId":"order-1","customerId":"customer-1","postalCode":""}"
+to contain:
+  ""field":"shippingAddress.postalCode"" 
+		at com.example.nestedvalidation.OrderControllerTest.lambda$配送先郵便番号が空なら400で拒否し注文を作成しない$2(OrderControllerTest.java:50)
+		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
+		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024)
+		at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+		at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+		at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921)
+		at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+		at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682)
+		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
+		... 7 more
+	Suppressed: org.opentest4j.AssertionFailedError: 
+expected: 0
+ but was: 1
+		at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+		at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+		at com.example.nestedvalidation.OrderControllerTest.lambda$配送先郵便番号が空なら400で拒否し注文を作成しない$3(OrderControllerTest.java:51)
+		at org.junit.jupiter.api.AssertAll.lambda$assertAll$0(AssertAll.java:68)
+		at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+		at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024)
+		at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+		at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+		at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921)
+		at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+		at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682)
+		at org.junit.jupiter.api.AssertAll.assertAll(AssertAll.java:77)
+		... 7 more
+
+[[1;31mERROR[m] [1;31mFailures: [m
+[[1;31mERROR[m] [1;31m  OrderControllerTest.配送先郵便番号が空なら400で拒否し注文を作成しない:47 Multiple Failures (4 failures)
+	org.opentest4j.AssertionFailedError: 
+expected: 400
+ but was: 201
+	java.lang.AssertionError: 
+Expecting actual:
+  "{"orderId":"order-1","customerId":"customer-1","postalCode":""}"
+to contain:
+  ""code":"VALIDATION_ERROR"" 
+	java.lang.AssertionError: 
+Expecting actual:
+  "{"orderId":"order-1","customerId":"customer-1","postalCode":""}"
+to contain:
+  ""field":"shippingAddress.postalCode"" 
+	org.opentest4j.AssertionFailedError: 
+expected: 0
+ but was: 1[m
+[[1;31mERROR[m] [1;31mTests run: 2, Failures: 1, Errors: 0, Skipped: 0[m
+[[1;31mERROR[m] Failed to execute goal [32morg.apache.maven.plugins:maven-surefire-plugin:3.2.5:test[m [1m(default-test)[m on project [36mspring-nested-validation-debug-lab[m: [1;31mThere are test failures.[m
+[[1;31mERROR[m] [1;31m[m
+[[1;31mERROR[m] [1;31mPlease refer to /home/ubuntu/spring-nested-validation-debug-lab/target/surefire-reports for the individual test results.[m
+[[1;31mERROR[m] [1;31mPlease refer to dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.[m
+[[1;31mERROR[m] -> [1m[Help 1][m
+[[1;31mERROR[m] 
+[[1;31mERROR[m] To see the full stack trace of the errors, re-run Maven with the [1m-e[m switch.
+[[1;31mERROR[m] Re-run Maven using the [1m-X[m switch to enable full debug logging.
+[[1;31mERROR[m] 
+[[1;31mERROR[m] For more information about the errors and possible solutions, please read the following articles:
+[[1;31mERROR[m] [1m[Help 1][m http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
